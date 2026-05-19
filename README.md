@@ -1,111 +1,120 @@
 # Neuromorphic HAR
 
-Code repository for the paper **“Neuromorphic Activity Monitoring for Elderly Care Using Event-Based IMU Encoding and Spiking Neural Networks”**.
+Code for reproducing the experiments from:
 
-This repository provides the Python code needed to reproduce the experiments reported in the paper: event-based IMU encoding, spiking neural network training, evaluation, and energy estimation.
+**Neuromorphic Activity Monitoring for Elderly Care Using Event-Based IMU Encoding and Spiking Neural Networks**
 
-## Requirements
+The paper describes the full method, including the ΣΔ event-based IMU encoding, the dual-head spiking convolutional network, and the energy estimation procedure. This repository is intended mainly to provide the code needed to reproduce the reported experiments.
 
-The project was developed with:
+## Environment
+
+The experiments were implemented in **Python 3.10** using **Conda**.
+
+The default environment assumes an NVIDIA GPU. In our experiments, we used:
 
 - Python 3.10
-- Conda
 - PyTorch
+- CUDA 12.1 through `pytorch-cuda=12.1`
 - NumPy
+- scikit-learn
+- matplotlib
+- einops
 
-A complete Conda environment file is provided:
+Create the environment with:
 
 ```bash
 conda env create -f environment.yml
 conda activate neuromorphic-har
 ```
 
-## Repository structure
+Verify the installation:
 
-```text
-.
-├── configs/              # Experiment configuration files
-├── data/                 # Dataset location; not tracked by git
-├── scripts/              # Training, evaluation and preprocessing scripts
-├── src/                  # Core implementation
-│   ├── encoding/         # Sigma-delta event-based IMU encoder
-│   ├── models/           # Spiking convolutional networks
-│   ├── training/         # Training and validation routines
-│   ├── evaluation/       # Metrics and reports
-│   └── energy/           # Energy estimation utilities
-├── environment.yml       # Conda environment
-└── README.md
+```bash
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
+python -c "import numpy, sklearn, matplotlib, einops; print('OK')"
 ```
+
+The provided `environment.yml` uses `pytorch-cuda=12.1`, which corresponds to the CUDA version used in our setup. Users with a different CUDA version may need to adjust the PyTorch/CUDA dependencies according to their local system.
 
 ## Datasets
 
 The experiments use public datasets:
 
-- **SisFall** for elderly-care activity monitoring, fall detection, dynamic activity recognition, and static-posture refinement.
-- **UCI HAR** for additional validation on a generic HAR benchmark.
+- **SisFall** for fall, dynamic activity, and static-posture monitoring.
+- **UCI HAR** for generic human activity recognition.
 
-Place the datasets inside `data/` following the expected structure used by the preprocessing scripts.
+Datasets are not included in this repository. Download them from their original sources and place them in the expected data directory.
+
+A suggested structure is:
 
 ```text
 data/
-├── sisfall/
-└── uci_har/
+├── SisFall/
+└── UCI_HAR/
 ```
 
-The datasets are not included in this repository.
+## Repository structure
 
-## Usage
+```text
+.
+├── data/                  # Datasets, not included in the repository
+├── models/                # Neural network models
+│   ├── spike.py           # Spiking convolutional models and losses
+│   ├── backbones.py       # Baseline/backbone models
+│   ├── attention.py
+│   └── MMB.py
+├── scripts/               # Training, evaluation, preprocessing, energy estimation
+├── results/               # Generated results, logs and metrics
+├── environment.yml
+└── README.md
+```
+
+## Running experiments
+
+The exact scripts may depend on the final organization of the repository. A typical workflow is:
 
 ### 1. Preprocess data
 
 ```bash
-python scripts/preprocess_sisfall.py --config configs/sisfall.yaml
-python scripts/preprocess_uci_har.py --config configs/uci_har.yaml
+python scripts/preprocess_sisfall.py
+python scripts/preprocess_uci.py
 ```
 
-### 2. Train the model
+### 2. Train the SisFall model
 
 ```bash
-python scripts/train.py --config configs/sisfall_scnsel.yaml
+python scripts/train_sisfall.py
 ```
 
-### 3. Evaluate
+### 3. Evaluate the SisFall model
 
 ```bash
-python scripts/evaluate.py --config configs/sisfall_scnsel.yaml --checkpoint checkpoints/best.pt
+python scripts/evaluate_sisfall.py
 ```
 
-### 4. Estimate energy
+### 4. Train and evaluate on UCI HAR
 
 ```bash
-python scripts/estimate_energy.py --config configs/sisfall_scnsel.yaml --checkpoint checkpoints/best.pt
+python scripts/train_uci.py
+python scripts/evaluate_uci.py
 ```
 
-## Main components
-
-- Sigma-delta event-based encoder for six-channel IMU windows.
-- Auxiliary offset vector for preserving the initial inertial reference.
-- Dual-head spiking convolutional network for:
-  - global classification: Fall / Dynamic / Static
-  - static refinement: Stable posture / Postural transition
-- Energy estimation based on sparse operations and LIF activity.
-
-## Reproducing paper results
-
-The selected operating point in the paper corresponds to the `SCNsel` configuration. Use:
+### 5. Estimate inference energy
 
 ```bash
-python scripts/train.py --config configs/sisfall_scnsel.yaml
+python scripts/estimate_energy.py
 ```
 
-Results may vary slightly depending on hardware, random seed, library versions, and dataset preprocessing.
+See the paper for the full experimental setup, ablations, task formulation, and energy analysis.
 
 ## Citation
+
+If you use this code, please cite:
 
 ```bibtex
 @article{valdivia2026neuromorphic,
   title   = {Neuromorphic Activity Monitoring for Elderly Care Using Event-Based IMU Encoding and Spiking Neural Networks},
-  author  = {Valdivia, Sebasti\'an and Yunge, Daniel},
+  author  = {Valdivia, Sebastián and Yunge, Daniel},
   journal = {Neuromorphic Computing and Engineering},
   year    = {2026}
 }
@@ -113,4 +122,4 @@ Results may vary slightly depending on hardware, random seed, library versions, 
 
 ## License
 
-Add the license selected for this repository.
+This repository is released for research and reproducibility purposes. Please check the license file for usage terms.
