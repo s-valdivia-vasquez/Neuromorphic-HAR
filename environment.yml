@@ -1,25 +1,16 @@
-name: snn
+name: neuromorphic-har
+
 channels:
-  - defaults
-dependencies:
-  - pyyaml
-  - pandas
-  - pytorch-cuda=12.1
-  - requests
-  - ipykernel
-  - jupyterlab
-  - ipywidgets
   - pytorch
-  - matplotlib
-  - numpy[version='<2']
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
   - python=3.10
+  - pytorch
+  - pytorch-cuda=12.1
+  - numpy
+  - matplotlib
   - scikit-learn
-  - pillow
-  - seaborn
-  - sympy
-  - scipy
-  - pip
-  - torchvision
-  - ipympl
-  - torchaudio
-prefix: C:\Users\optolab\miniconda3\envs\snn
+  - einops
