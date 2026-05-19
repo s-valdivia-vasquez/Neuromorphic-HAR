@@ -11,10 +11,7 @@ The project was developed with:
 - Python 3.10
 - Conda
 - PyTorch
-- NumPy / SciPy
-- scikit-learn
-- pandas
-- matplotlib
+- NumPy
 
 A complete Conda environment file is provided:
 
