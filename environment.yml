@@ -1,0 +1,25 @@
+name: snn
+channels:
+  - defaults
+dependencies:
+  - pyyaml
+  - pandas
+  - pytorch-cuda=12.1
+  - requests
+  - ipykernel
+  - jupyterlab
+  - ipywidgets
+  - pytorch
+  - matplotlib
+  - numpy[version='<2']
+  - python=3.10
+  - scikit-learn
+  - pillow
+  - seaborn
+  - sympy
+  - scipy
+  - pip
+  - torchvision
+  - ipympl
+  - torchaudio
+prefix: C:\Users\optolab\miniconda3\envs\snn
