@@ -1,6 +1,6 @@
 # Neuromorphic HAR
 
-Code for reproducing the experiments from:
+Code used from:
 
 **Neuromorphic Activity Monitoring for Elderly Care Using Event-Based IMU Encoding and Spiking Neural Networks**
 
@@ -106,20 +106,3 @@ python scripts/estimate_energy.py
 ```
 
 See the paper for the full experimental setup, ablations, task formulation, and energy analysis.
-
-## Citation
-
-If you use this code, please cite:
-
-```bibtex
-@article{valdivia2026neuromorphic,
-  title   = {Neuromorphic Activity Monitoring for Elderly Care Using Event-Based IMU Encoding and Spiking Neural Networks},
-  author  = {Valdivia, Sebastián and Yunge, Daniel},
-  journal = {Neuromorphic Computing and Engineering},
-  year    = {2026}
-}
-```
-
-## License
-
-This repository is released for research and reproducibility purposes. Please check the license file for usage terms.
