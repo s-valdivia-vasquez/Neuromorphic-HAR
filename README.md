@@ -128,13 +128,13 @@ Useful parser options include `--refresh`, `--save-plot`, `--th-pt`, `--th-sp`, 
 SisFall:
 
 ```bash
-python optimize_theta.py --dataset sisfall --data-root data --ups 5 --dead-zone 0.5 --quiet-epochs
+python optimize_theta.py --dataset sisfall --data-root data --ups 5 --dead-zone 0.5
 ```
 
 UCI HAR:
 
 ```bash
-python optimize_theta.py --dataset ucihar --data-root data --ups 5 --dead-zone 0.5 --quiet-epochs
+python optimize_theta.py --dataset ucihar --data-root data --ups 5 --dead-zone 0.5
 ```
 
 Fast debug run:
@@ -142,7 +142,7 @@ Fast debug run:
 ```bash
 python optimize_theta.py --dataset sisfall --data-root data --ups 5 --dead-zone 0.5 \
   --train-per-class 16 --val-per-class 8 --test-per-class 8 \
-  --sampled-test-only --max-epochs 3 --workers 1 --executor none --force
+  --sampled-test-only --max-epochs 2 --workers 1
 ```
 
 ## Training
