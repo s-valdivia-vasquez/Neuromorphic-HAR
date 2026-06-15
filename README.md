@@ -108,7 +108,7 @@ Reference:
 All scripts expose their options through argparse:
 
 ```bash
-python run_posture_tagging.py --help
+python posture_tagging.py --help
 python optimize_theta.py --help
 python train_sisfall.py --help
 python train_ucihar.py --help
@@ -170,7 +170,7 @@ Example parameter entry:
 ```bash
 python train_sisfall.py --head-mode dual --tau 0.75 --thresh 0.5 \
   --conv-ch 32 64 64 --kernels 32 32 8 --strides 4 2 1 \
-  --p-drop 0.35 --dead-zone 0.5 --run sisfall_custom
+  --p-drop 0.35 --dead-zone 0.5
 ```
 
 Each training run creates a separate folder under `runs/`.
